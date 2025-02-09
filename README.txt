@@ -67,21 +67,23 @@ It contains four subfolders containing the following files:
     An R script that was used to generate the similarity matrix of local-PP in the manuscript (Section 2.2).
     
 ./simulation/
-    code_sim_tuning.R
-    An R script that performs model parameter tuning for local-PP-PEB, local-PP-GEB and JSD methods (Section 3.2).
-    
-    code_sim_main.R
-    An R script that performs the simulations reported in the manuscript (Section 3). Simulation was performed in parallel on 10 cores on Windows 10. Results of the simulation are saved into the folder ./intermediate_results/ since computation of the whole simulation can take around 2 days since some MCMC methods are time-consuming.
+    code_tuning_equal.R
+    An R script that performs model parameter tuning for local-PP-PEB, local-PP-GEB and JSD methods under the equal basket size setting (Section 3.2).
+
+    code_sim_equal.R
+    An R script that performs the simulations with equal basket sizes (Section 3). Simulation was performed in parallel on 10 cores on Windows 10. Results of the simulation are saved into the folder ./intermediate_results/.
     For faster computation the number of replications within each simulation scenario could be reduced from nperclust=500. If the machine used for computation is not able to compute on 10 cores simultaneously the number of cores used for simulation should be reduced by changing the nclust argument.
-    
-    code_sim_supp.R
-    An R script that performs the simulations with unequal basket sample sizes (Section 3.4). 
+
+    code_tuning_unequal.R
+    An R script that performs model parameter tuning for local-PP-PEB, local-PP-GEB and JSD methods under the unequal basket size setting (Section 3.4).
+
+    code_sim_unequal.R
+    An R script that performs the simulations with unequal basket sample sizes (Section 3.4). Simulation was performed in parallel on 10 cores on Windows 10. Results of the simulation are saved into the folder ./intermediate_results/.
     For faster computation the number of replications within each simulation scenario could be reduced from nperclust=500. If the machine used for computation is not able to compute on 10 cores simultaneously the number of cores used for simulation should be reduced by changing the nclust argument.
     
     ./intermediate_results/
-    A folder containing the results of code_sim_tuning.R, code_sim_main.R and code_sim_supp.R
+    A folder containing the results of code_sim_equal.R and code_sim_unequal.R. 
     
-    results_sim_main.R and results_sim_supp.R
-    R scripts that take the RData files from the intermediate_results and creates the
-    results tables presented in the manuscript.
+    results_equal.R and results_unequal.R
+    R scripts that take the RData files from the intermediate_results and creates the tables presented in the manuscript.
     

@@ -96,7 +96,7 @@ pp.localPP
 ## similarity matrix
 sss <- round(fit$sm, 2)
 rownames(sss) <- c("NSCLC", "CRC vemu", "CRC vemu+cetu", "Bile duct", "ECD or LCH", "ATC")
-print(xtable(sss)) # Table A6
+print(xtable(sss)) # Appendix Table A3
 fit$sm%*%N-N ## borrowing amount in term of number of subjects
 
 #################################
