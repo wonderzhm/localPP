@@ -15,7 +15,7 @@ library(plyr)
 library(cluster)
 library(coda)
 library(rjags)
-library(BasketTrial) # install it by devtools::install_github("wonderzhm/BasketTrial")
+library(BasketTrial)
 source("../functions/functions.R")
 source("../functions/functions_parallel.R")
 
