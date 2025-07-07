@@ -10,14 +10,32 @@ library(BasketTrial) # for local-PP, Independent, and JSD methods
 source(file.path("..", "functions", "utils.R"))   # required for BCHM (Chen and Lee, 2020)
 source(file.path("..", "functions", "cluster.R")) # required for local MEM (Liu et al. 2022)
 
-
-### logit function
+#' logit function
+#'
+#' @param x a value between 0 and 1
+#'
+#' @return returns log(x/(1-x)).
+#' @export
+#'
+#' @examples
 logit<-function(x)
 {
   log(x/(1-x))
 }
 
-## MEM (Kane et al., 2020)
+#' MEM (Kane et al., 2020)
+#'
+#' @param nDat a vector with each element being the sample size for each basket. 
+#' @param yDat a vector with each element being the number of responses for each basket. 
+#' @param p0 the response rate under the null hypothesis.
+#' @param shape1 the first shape parameter for the prior of each basket.
+#' @param shape2 the second shape parameter for the prior of each basket.
+#'
+#' @return It returns the estimated response rate and the posterior probability
+#' of response rate greater than p0 for each basket.  
+#' @export
+#'
+#' @examples
 MEM <- function(nDat, yDat, p0 = 0.15, shape1 = 0.15, shape2 = 0.85){
   n <- nDat
   y <- yDat
@@ -28,7 +46,19 @@ MEM <- function(nDat, yDat, p0 = 0.15, shape1 = 0.15, shape2 = 0.85){
               post_prob = as.vector(res$basket$post_prob)))
 }
 
-## local MEM (Liu et al., 2022)
+#' Local MEM (Liu et al., 2022)
+#'
+#' @param nDat a vector with each element being the sample size for each basket. 
+#' @param yDat a vector with each element being the number of responses for each basket. 
+#' @param be.a0 the first shape parameters for the prior of each basket.
+#' @param be.b0 the second shape parameters for the prior of each basket.
+#' @param delta the delta parameter used in the prior; see Liu et al. (2022). 
+#' @param max_C the maximum # of clusters. 
+#'
+#' @return It returns the two shape parameters of the posterior beta distribution of response rate for each basket. 
+#' @export
+#'
+#' @examples
 localMEM <- function(nDat, yDat, be.a0 = NULL, be.b0 = NULL, 
                      delta = 2, # Delta Specification for the Prior
                      max_C = length(nDat) # Max # of Clusters
@@ -69,8 +99,24 @@ localMEM <- function(nDat, yDat, be.a0 = NULL, be.b0 = NULL,
   }
 }
 
-
-# BHM uniform (Cunanan et al., 2019)
+#' BHM uniform (Cunanan et al., 2019)
+#'
+#' @param nDat a vector with each element being the sample size for each basket. 
+#' @param yDat a vector with each element being the number of responses for each basket. 
+#' @param mu0 hyperprior for mu~N(mu0, sig02)
+#' @param sig02 hyperprior for mu~N(mu0, sig02)
+#' @param u0 hyperprior for sig~ U(0, u0)
+#' @param be.a0 Beta(a0, b0) on ORR for each basket for clustering
+#' @param be.b0 Beta(a0, b0) on ORR for each basket for clustering
+#' @param n.chains number of Markov chains. 
+#' @param n.iter number of total iterations per chain (including burn in)
+#' @param n.burnin length of burn in, i.e. number of iterations to discard at the beginning. 
+#' @param n.thin thinning rate. Must be a positive integer. 
+#'
+#' @return It results the posterior samples of response rate for each basket. 
+#' @export
+#'
+#' @examples
 BHMunif <- function(nDat,
                 yDat,
                 mu0 = 0, # hyperprior for mu~N(mu0, sig02)
@@ -124,7 +170,23 @@ BHMunif <- function(nDat,
   return(psamples)
 }
 
-# BHM gamma prior (Berry et al., 2013)
+#' BHM gamma prior (Berry et al., 2013)
+#'
+#' @param nDat a vector with each element being the sample size for each basket. 
+#' @param yDat a vector with each element being the number of responses for each basket. 
+#' @param mu0 Hyperprior Mean
+#' @param sig02 Hyperprior Variance
+#' @param a0 Hyperprior Gamma(a0, b0) for 1/Variance
+#' @param b0 Hyperprior Gamma(a0, b0) for 1/Variance
+#' @param n.chains number of Markov chains. 
+#' @param n.iter number of total iterations per chain (including burn in)
+#' @param n.burnin length of burn in, i.e. number of iterations to discard at the beginning. 
+#' @param n.thin thinning rate. Must be a positive integer. 
+#'
+#' @return It results the posterior samples of response rate for each basket. 
+#' @export
+#'
+#' @examples
 BHM <- function(nDat,
                 yDat,
                 mu0 = -1.735, # Hyperprior Mean
@@ -172,8 +234,28 @@ BHM <- function(nDat,
   return(jagsfit$BUGSoutput$sims.matrix[,-1, drop = FALSE])
 }
 
-## BCHM (Chen and Lee 2020)
-### This function generates samples from BCHM.
+#' This function generates samples from BCHM (Chen and Lee 2020).
+#'
+#' @param nDat a vector with each element being the sample size for each basket. 
+#' @param yDat a vector with each element being the number of responses for each basket. 
+#' @param mu Hyperprior mean for the cluster.
+#' @param sigma02 Hyperprior variance for the cluster.
+#' @param sigmaD2 Variance of subgroup response rate.
+#' @param alpha Alpha value of the Dirichlet Process determining number of clusters.
+#' @param d0 Minimum value for the similarity matrix.
+#' @param alpha1 Prior for borrowing strength gamma(alpha1, beta1) in the hierarchical model.
+#' @param beta1 Prior for borrowing strength gamma(alpha1, beta1) in the hierarchical model.
+#' @param mu0 Hyperprior mean parameter of subgroup means in the hierarchical model
+#' @param tau2 Hyperprior precision parameter of subgroup means in the hierarchical model
+#' @param n.chains number of Markov chains. 
+#' @param n.iter number of total iterations per chain (including burn in)
+#' @param n.burnin length of burn in, i.e. number of iterations to discard at the beginning. 
+#' @param n.thin thinning rate. Must be a positive integer. 
+#'
+#' @return It results the posterior samples of response rate for each basket. 
+#' @export
+#'
+#' @examples
 BCHM <- function(nDat, yDat,
                  mu = 0.2,
                  sigma02 = 10, # Variance of Prior
@@ -279,8 +361,25 @@ BCHM <- function(nDat, yDat,
   allPost
 }
 
-## EXNEX 2015 Neuschwander Paper Recommendations
-### This function generates samples from EXNEX.
+#' This function generates samples from EXNEX (Neuenschwander et al., 2016).
+#'
+#' @param nDat a vector with each element being the sample size for each basket. 
+#' @param yDat a vector with each element being the number of responses for each basket. 
+#' @param weight the weights for EX and NEX components
+#' @param nex.mean mean of the normal prior distribution of the NEX part.
+#' @param nex.prec precision of the normal prior distribution of the NEX part.
+#' @param mu.mean mean of the normal prior distribution of the EX part.
+#' @param mu.prec precision of the normal prior distribution of the EX part.
+#' @param tau.HN.scale Prior Tau Precision Power Parameter
+#' @param n.chains number of Markov chains. 
+#' @param n.iter number of total iterations per chain (including burn in)
+#' @param n.burnin length of burn in, i.e. number of iterations to discard at the beginning. 
+#' @param n.thin thinning rate. Must be a positive integer. 
+#'
+#' @return It results the posterior samples of response rate for each basket. 
+#' @export
+#'
+#' @examples
 EXNEX <- function(nDat, yDat, weight = c(0.25, 0.25, 0.5), 
                   nex.mean = -1.73, # NeX.Mean
                   nex.prec = 0.09, # Nex.Prec

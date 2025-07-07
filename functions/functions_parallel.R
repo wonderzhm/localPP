@@ -1,4 +1,23 @@
-## Generate posterior probabilities parallel version
+#' Posterior Inference for Simulated Basket Trial Data
+#' 
+#' Generates posterior probabilities P(p_j > pnull) after all interim analysis and 
+#' calculates rates for early stopping, number of patients and estimated ORR. It is a parallel computing version of 
+#' \code{BasketTrial::post.infer}. 
+#' @param nclust number of clusters for parallel computing. 
+#' @param nperclust number of simulated trials per cluster. 
+#' @param data.object object returned from \code{BasketTrial::generate.data}.
+#' @param pnull B by 1 vector of null response rates, where B is the number of baskets.
+#' @param stopbounds B by (stage-1) matrix: stopping boundaries for each basket at each interim.
+#' @param beta.a0 a vector of length B for beta prior parameter a0 in each basket.
+#' @param beta.b0 a vector of length B for beta prior parameter b0 in each basket.
+#' @param seed random seed for reproducibility.
+#' @param ModelFit	the method function, e.g., localPP, JSD, and other user defined methods.
+#' @param ... additional arguments passed to the method function defined by \code{ModelFit}.
+#'
+#' @return  It returns a list including early stopping, number of patients and estimated ORR.
+#' @export
+#'
+#' @examples
 post.infer.parallel <- function(nclust, nperclust, data.object, pnull, stopbounds = NULL, 
                                 beta.a0 = pnull, beta.b0 = 1-pnull, seed = 38098, ModelFit, ...) {
   if(nclust > detectCores()) stop("nclust needs to be smaller than detectCores()")
