@@ -1,4 +1,4 @@
-## These functions are required for fitting BCHM (Chen and Lee, 2020)
+## These functions are required for fitting BCHM (Chen and Lee, 2020), copied from the R package BCHM (https://cran.r-project.org/package=BCHM)
 library(plyr)
 #library(clValid)
 library(cluster)

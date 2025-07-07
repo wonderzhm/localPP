@@ -10,37 +10,37 @@
 # the number of cores used for simulation should be reduced by reducing the value of nclust.
 ####### Generate Tables 3.1, 3.2, 3.3 and A2 ##############
 ## Results are saved to ./simulation1/results
-setwd("./simulation1") # set the current working directory to folder simulation1
-source("./simulation1_equalN.R")
-setwd("../") # reset the current working directory to the parent folder that contains main.R. 
+setwd(file.path(".", "simulation1")) # set the current working directory to folder simulation1
+source(file.path(".", "simulation1_equalN.R"))
+setwd("..") # reset the current working directory to the parent folder that contains main.R. 
 
 ####### Generate Tables 3.4, 3.5, and 3.6 ##############
 ## Results are saved to ./simulation2/results
-setwd("./simulation2") # set the current working directory to folder simulation2
-source("./simulation2_unequalN.R")
-setwd("../") # reset the current working directory to the parent folder that contains main.R. 
+setwd(file.path(".", "simulation2"))  # Go to simulation2 folder
+source(file.path(".", "simulation2_unequalN.R"))
+setwd("..")  # Back to parent folder
 
 ####### Generate Tables 4.1, 4.2, and A3 ##############
 ## Results are saved to ./case_study/results
-setwd("./case_study") # set the current working directory to folder case_study
-source("./code_case_study.R")
-setwd("../") # reset the current working directory to the parent folder that contains main.R. 
+setwd(file.path(".", "case_study"))  # Go to case_study folder
+source(file.path(".", "code_case_study.R"))
+setwd("..")  # Back to parent folder
 
 ######################################## Option 2 ##############################################
 ####### Generate Tables 3.1, 3.2, 3.3 and A2 ##############
 ## Results are saved to ./simulation1/results
-setwd("./simulation1") # set the current working directory to folder simulation1
-source("./code/get_tables.R")
-setwd("../") # reset the current working directory to the parent folder that contains main.R. 
+setwd(file.path(".", "simulation1"))  # Go to simulation1 folder
+source(file.path(".", "code", "get_tables.R"))
+setwd("..")  # Back to parent folder
 
 ####### Generate Tables 3.4, 3.5, and 3.6 ##############
 ## Results are saved to ./simulation2/results
-setwd("./simulation2") # set the current working directory to folder simulation2
-source("./code/get_tables.R")
-setwd("../") # reset the current working directory to the parent folder that contains main.R. 
+setwd(file.path(".", "simulation2"))  # Go to simulation2 folder
+source(file.path(".", "code", "get_tables.R"))
+setwd("..")  # Back to parent folder
 
 ####### Generate Tables 4.1, 4.2, and A3 ##############
 ## Results are saved to ./case_study/results
-setwd("./case_study") # set the current working directory to folder case_study
-source("./code/get_tables.R")
-setwd("../") # reset the current working directory to the parent folder that contains main.R. 
+setwd(file.path(".", "case_study"))  # Go to case_study folder
+source(file.path(".", "code", "get_tables.R"))
+setwd("..")  # Back to parent folder

@@ -14,8 +14,8 @@ library(cluster)
 library(coda)
 library(rjags)
 library(BasketTrial) # install it by devtools::install_github("wonderzhm/BasketTrial")
-source("../functions/functions.R")
-source("../functions/functions_parallel.R")
+source(file.path("..", "functions", "functions.R"))
+source(file.path("..", "functions", "functions_parallel.R"))
 
 ### BRAF V600 trial data and design settings
 N <- rbind(19, 10, 26, 8, 14, 7) #  total sample size for each indication
@@ -95,10 +95,10 @@ pp.localPP <- pbeta(0.15, shape1 = fit$a.post,
                     shape2 = fit$b.post, lower.tail = FALSE)
 pp.localPP
 
-save.image("./intermediate_results/case_study.RData")
+save.image(file.path(".", "intermediate_results", "case_study.RData"))
 
 ####################################################################################
 ## Steps below read the case_study.RData file and 
 ## create Tables 4.1, 4.2 and A3 in the paper
 ####################################################################################
-source("./code/get_tables.R")
+source(file.path(".", "code", "get_tables.R"))

@@ -1,12 +1,12 @@
 #### Tables 3.1, 3.2, 3.3 and A2 in the paper from the intermediate results.
 
 library(xtable)
-load("./intermediate_results/AllMethods_main.RData")
+load(file.path(".", "intermediate_results", "AllMethods_main.RData"))
 
 Table3.1 <- scenarios
 rownames(Table3.1) <- paste("S", 1:6, sep = "")
 colnames(Table3.1) <- paste("Basket", 1:5, sep = " ")
-write.csv(Table3.1, "./results/Table 3.1.csv")
+write.csv(Table3.1, file.path(".", "results", "Table 3.1.csv"))
 
 ##### Table 3.2 Overall performance for different methods
 method.names <- c("IM", "PP-PEB", "local-PP-PEB1", "local-PP-PEB2", 
@@ -36,7 +36,7 @@ for(i in 1:nmethods){
 #results
 indx.order <- c(1,2,3,5,6,8,10:14, 4,7,9)
 print(xtable(results[indx.order,]))
-write.csv(results[indx.order,], "./results/Table 3.2.csv")
+write.csv(results[indx.order,], file.path(".", "results", "Table 3.2.csv"))
 
 ## Table 3.3  Results by scenarios
 method.indx <- c(1,4,7,9,10); method.names[method.indx]
@@ -65,7 +65,7 @@ for(k in 1:nrow(scenarios)){
   print(xtable(oc.by.sc))
   cat("\n")
 }
-write.csv(res.by.sc, "./results/Table 3.3.csv")
+write.csv(res.by.sc, file.path(".", "results", "Table 3.3.csv"))
 
 ## Table A2  Results by scenarios for remaining methods
 method.indx <- c(2,3,5,6,8,11,12,13,14); method.names[method.indx]
@@ -96,4 +96,4 @@ for(k in 1:nrow(scenarios)){
   print(xtable(oc.by.sc))
   cat("\n")
 }
-write.csv(res.by.sc, "./results/Table A2.csv")
+write.csv(res.by.sc, file.path(".", "results", "Table A2.csv"))

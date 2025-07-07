@@ -7,8 +7,8 @@ library(foreach)
 library(bhmbasket) ## required for EXNEX
 library(basket) ## required for MEM (Kane et al., 2020)
 library(BasketTrial) # for local-PP, Independent, and JSD methods
-source("../functions/utils.R") ## required for BCHM (Chen and Lee, 2020)
-source("../functions/cluster.R") ## required for local MEM (Liu et al. 2022)
+source(file.path("..", "functions", "utils.R"))   # required for BCHM (Chen and Lee, 2020)
+source(file.path("..", "functions", "cluster.R")) # required for local MEM (Liu et al. 2022)
 
 
 ### logit function

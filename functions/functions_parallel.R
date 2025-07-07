@@ -8,7 +8,7 @@ post.infer.parallel <- function(nclust, nperclust, data.object, pnull, stopbound
   registerDoParallel(cl)
   
   ## Export Functions to the Cluster
-  clusterCall(cl, function() {source("../functions/functions.R")})
+  clusterCall(cl, function() {source(file.path("..", "functions", "functions.R"))})
   clusterExport(cl, list("nperclust", "data.object", "pnull", "stopbounds", "beta.a0", "beta.b0", "seed"))
   
   ## Parallel Computing

@@ -14,14 +14,14 @@ library(cluster)
 library(coda)
 library(rjags)
 library(BasketTrial)
-source("../functions/functions.R")
-source("../functions/functions_parallel.R")
+source(file.path("..", "functions", "functions.R"))
+source(file.path("..", "functions", "functions_parallel.R"))
 
 ####### Simulation Settings and Generate Data ##############
 nperclust <- 500 # number of simulated trials per cluster 
 detectCores()
 nclust <- 10 # Total 5000 MC replicates
-source("./code/sim_settings.R")
+source(file.path(".", "code", "sim_settings.R"))
 
 ####################################################################################
 ## Simulation results for comparing the  following methods:
@@ -31,25 +31,26 @@ source("./code/sim_settings.R")
 ####################################################################################
 
 ####################### Independent Model ########################
-source("./code/IM.R")
+source(file.path(".", "code", "IM.R"))
 
 ####################### local-PP-PEB ########################
-source("./code/local-PP-PEB.R")
+source(file.path(".", "code", "local-PP-PEB.R"))
 
 ####################### local-PP-GEB ########################
-source("./code/local-PP-GEB.R")
+source(file.path(".", "code", "local-PP-GEB.R"))
 
 ####################### JSD ########################
-source("./code/JSD.R")
+source(file.path(".", "code", "JSD.R"))
 
 ####################### EXNEX ########################
-source("./code/EXNEX.R")
+source(file.path(".", "code", "EXNEX.R"))
 
 ######## save above methods into RData file.
-save.image("./intermediate_results/AllMethods_supp.RData")
+save.image(file.path(".", "intermediate_results", "AllMethods_supp.RData"))
 
 ####################################################################################
 ## Steps below read the AllMethods_supp.RData file and 
 ## create Tables 3.4, 3.5, and 3.6 in the paper
 ####################################################################################
-source("./code/get_tables.R")
+source(file.path(".", "code", "get_tables.R"))
+

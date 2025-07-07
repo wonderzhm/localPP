@@ -3,7 +3,7 @@
 
 # Load required packages
 library(xtable)
-load("./intermediate_results/case_study.RData")
+load(file.path(".", "intermediate_results", "case_study.RData"))
 
 #################################
 ### Table 4.1 BRAF V600 trial data
@@ -12,7 +12,7 @@ Table4.1 <- cbind(N, responses, round(responses/N, 3))
 rownames(Table4.1) <- c("NSCLC", "CRC vemu", "CRC vemu+cetu", 
                         "Bile duct", "ECD or LCH", "ATC")
 colnames(Table4.1) <- c("Sample Size", "Number of Responses", "Response rate")
-write.csv(Table4.1, "./results/Table 4.1.csv")
+write.csv(Table4.1, file.path(".", "results", "Table 4.1.csv"))
 
 #################################
 ### Table 4.2 Results on BRAF V600 trial data
@@ -28,7 +28,7 @@ results[,5] <- sprintf(fmt = '%#.3f', pp.Independent)
 results[,6] <- sprintf(fmt = '%#.3f', pp.localPP)
 results
 print(xtable(results))
-write.csv(results, "./results/Table 4.2.csv")
+write.csv(results, file.path(".", "results", "Table 4.2.csv"))
 
 #################################
 ### Table A3: Estimated similarity matrix on BRAF V600 trial data
@@ -37,4 +37,4 @@ sss <- round(fit$sm, 2)
 rownames(sss) <- c("NSCLC", "CRC vemu", "CRC vemu+cetu", "Bile duct", "ECD or LCH", "ATC")
 print(xtable(sss)) # Appendix Table A3
 fit$sm%*%N-N ## borrowing amount in term of number of subjects
-write.csv(sss, "./results/Table A3.csv")
+write.csv(sss, file.path(".", "results", "Table A3.csv"))

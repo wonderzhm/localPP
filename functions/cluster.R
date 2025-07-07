@@ -1,5 +1,5 @@
 library(partitions)
-# These functions are required for fitting local MEM (Liu et al. 2022)
+# These functions are required for fitting local MEM (Liu et al. 2022), copied from Bayesian-localMEM (https://github.com/yilinyl/Bayesian-localMEM)
 # R: the number of trials to consider
 # max_cl: maximum number of blocks
 # same results as previous version

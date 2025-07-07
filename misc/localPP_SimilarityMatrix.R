@@ -1,5 +1,5 @@
 # Load required packages
-library(BasketTrial) # install it by devtools::install_github("wonderzhm/BasketTrial")
+library(BasketTrial) 
 library(xtable)
 
 ### Similarity Matrix: element (i,j) is the power parameter between baskets i and j

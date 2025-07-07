@@ -1,7 +1,7 @@
 #### Generate Tables 3.4, 3.5, and 3.6 in the paper from the intermediate results.
 
 library(xtable)
-load("./intermediate_results/AllMethods_supp.RData")
+load(file.path(".", "intermediate_results", "AllMethods_supp.RData"))
 
 ##### Table 3.4 The efficacy cutoff Q_is for all considered methods.
 method.names <- c("IM", "local-PP-PEB", "local-PP-GEB", "JSD",  "EXNEX")
@@ -18,7 +18,7 @@ for(i in 1:nmethods){
   Q.by.method[i,] <- sprintf(res$Q, fmt = '%#.3f')
 }
 print(xtable(Q.by.method))
-write.csv(Q.by.method, "./results/Table 3.4.csv")
+write.csv(Q.by.method, file.path(".", "results", "Table 3.4.csv"))
 
 ##### Table 3.5 Overall performance for different methods
 results <- matrix(NA, nmethods, 5)
@@ -36,7 +36,7 @@ for(i in 1:nmethods){
 }
 #results
 print(xtable(results))
-write.csv(results, "./results/Table 3.5.csv")
+write.csv(results, file.path(".", "results", "Table 3.5.csv"))
 
 ## Table 3.6  Results by scenarios
 method.indx <- 1:5; method.names[method.indx]
@@ -65,4 +65,4 @@ for(k in 1:nrow(scenarios)){
   cat("\n")
 }
 #res.by.sc
-write.csv(res.by.sc, "./results/Table 3.6.csv")
+write.csv(res.by.sc, file.path(".", "results", "Table 3.6.csv"))

@@ -16,8 +16,8 @@ library(cluster)
 library(coda)
 library(rjags)
 library(BasketTrial)
-source("../functions/functions.R")
-source("../functions/functions_parallel.R")
+source(file.path("..", "functions", "functions.R"))
+source(file.path("..", "functions", "functions_parallel.R"))
 
 nperclust <- 500 # number of simulated trials per cluster 
 detectCores()
