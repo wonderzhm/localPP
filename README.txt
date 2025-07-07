@@ -91,8 +91,8 @@ This folder contains the following data and files that can be used to reproduce 
 ./case_study/:
     code_case_study.R
     An R script that contains the code of the analysis reported in the paper (section 4) when type I error is controlled at 0.05. It generates Tables 4.1, 4.2, and A3 and saves them into the folder ./results/. The workspace is saved into the folder ./intermediate_results/. 
-	./code/
-    	get_tables.R
+    ./code/
+        get_tables.R
         An R script that tables from the saved workspace.  
 
 ./functions/:
