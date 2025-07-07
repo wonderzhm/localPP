@@ -5,7 +5,7 @@ Authors: Haiming Zhou, Rex Shen, Sutan Wu and Philip He
 Code was written by Haiming Zhou and Rex Shen. 
 In case of questions or comments please contact haiming2019@gmail.com
 
-Please install the R package BasketTrial by devtools::install_github("wonderzhm/BasketTrial").
+Please install the R package BasketTrial from CRAN. 
 
 The code was written/evaluated in R with the following software versions:
 R version 4.4.1 (2024-06-14 ucrt)
@@ -86,12 +86,14 @@ loaded via a namespace (and not attached):
 [51] itertools_0.1-3    Rcpp_1.0.13        glue_1.7.0         polynom_1.4-1      tweenr_2.0.3      
 [56] rstudioapi_0.16.0  R6_2.6.1           R2WinBUGS_2.1-22.1
 
-This folder contains the following data and files that can be used to reproduce all analysis results of the manuscript.
-It contains four subfolders containing the following files:
+This folder contains the following data and files that can be used to reproduce all analysis results of the manuscript. The one single main.R file proceeds through the following five folders to re-produce all tables in the paper. 
 
 ./case_study/:
     code_case_study.R
-    An R script that contains the code of the analysis reported in the paper (section 4) when type I error is controlled at 0.05. It generates Tables 4.1, 4.2, and A3 and saves them into the folder ./results/. 
+    An R script that contains the code of the analysis reported in the paper (section 4) when type I error is controlled at 0.05. It generates Tables 4.1, 4.2, and A3 and saves them into the folder ./results/. The workspace is saved into the folder ./intermediate_results/. 
+	./code/
+    	get_tables.R
+        An R script that tables from the saved workspace.  
 
 ./functions/:
     functions.R

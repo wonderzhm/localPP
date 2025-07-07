@@ -13,22 +13,13 @@ library(plyr)
 library(cluster)
 library(coda)
 library(rjags)
-library(xtable)
 library(BasketTrial) # install it by devtools::install_github("wonderzhm/BasketTrial")
 source("../functions/functions.R")
 source("../functions/functions_parallel.R")
 
-#################################
-### Table 4.1 BRAF V600 trial data
-################################
+### BRAF V600 trial data and design settings
 N <- rbind(19, 10, 26, 8, 14, 7) #  total sample size for each indication
 responses <- rbind(8, 0, 1, 1, 6, 2) # number of responses for each indication
-Table4.1 <- cbind(N, responses, round(responses/N, 3))
-rownames(Table4.1) <- c("NSCLC", "CRC vemu", "CRC vemu+cetu", 
-                        "Bile duct", "ECD or LCH", "ATC")
-colnames(Table4.1) <- c("Sample Size", "Number of Responses", "Response rate")
-write.csv(Table4.1, "results/Table 4.1.csv")
-
 nperclust <- 10000 # number of simulated trials per cluster 
 detectCores()
 nclust <- 10 # Total 100000 MC replicates
@@ -103,28 +94,11 @@ fit <- localPP(nDat = c(19, 10, 26, 8, 14, 7), yDat = c(8, 0, 1, 1, 6, 2),
 pp.localPP <- pbeta(0.15, shape1 = fit$a.post, 
                     shape2 = fit$b.post, lower.tail = FALSE)
 pp.localPP
-#################################
-### Table A3: Estimated similarity matrix on BRAF V600 trial data
-################################
-sss <- round(fit$sm, 2)
-rownames(sss) <- c("NSCLC", "CRC vemu", "CRC vemu+cetu", "Bile duct", "ECD or LCH", "ATC")
-print(xtable(sss)) # Appendix Table A3
-fit$sm%*%N-N ## borrowing amount in term of number of subjects
-write.csv(sss, "results/Table A3.csv")
 
-#################################
-### Table 4.2 Results on BRAF V600 trial data
-################################
-results <- matrix(NA, nrow = B, ncol = 6)
-rownames(results) <- c("NSCLC", "CRC vemu", "CRC vemu+cetu", "Bile duct", "ECD or LCH", "ATC")
-colnames(results) <- c("Q_ind", "Q_localPP", "TypeI_ind", "TypeI_localPP", "pp_ind", "pp_localPP")
-results[,1] <- sprintf(fmt = '%#.3f', Q.Independent)
-results[,2] <- sprintf(fmt = '%#.3f', Q.localPP)
-results[,3] <- sprintf(fmt = '%#.3f', oc.Independent[1,])
-results[,4] <- sprintf(fmt = '%#.3f', oc.localPP[1,])
-results[,5] <- sprintf(fmt = '%#.3f', pp.Independent)
-results[,6] <- sprintf(fmt = '%#.3f', pp.localPP)
-results
-print(xtable(results))
-write.csv(results, "results/Table 4.2.csv")
+save.image("./intermediate_results/case_study.RData")
 
+####################################################################################
+## Steps below read the case_study.RData file and 
+## create Tables 4.1, 4.2 and A3 in the paper
+####################################################################################
+source("./code/get_tables.R")
